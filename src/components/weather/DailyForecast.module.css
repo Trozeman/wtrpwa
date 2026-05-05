@@ -19,16 +19,27 @@
   overflow: hidden;
 }
 
-.row {
-  display: grid;
-  grid-template-columns: 60px 22px 1fr auto;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 14px;
+/* ── Item wrapper ───────────────────────────────────── */
+.item {
   border-top: 1px solid #0f172a;
 }
 
-.row:first-child { border-top: none; }
+.item:first-child { border-top: none; }
+
+/* ── Summary row (button) ───────────────────────────── */
+.row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 60px 22px 1fr auto 16px;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  text-align: left;
+  transition: background 0.15s;
+}
+
+.row:hover  { background: rgba(255,255,255,0.03); }
+.rowOpen    { background: rgba(59,130,246,0.06); }
 
 .day {
   font-size: 13px;
@@ -83,4 +94,118 @@
   font-size: 11px;
   color: #60a5fa;
   margin-top: 1px;
+}
+
+/* ── Chevron ────────────────────────────────────────── */
+.chevron {
+  font-size: 16px;
+  color: #475569;
+  display: inline-block;
+  transition: transform 0.2s ease, color 0.15s;
+  line-height: 1;
+}
+
+.chevronOpen {
+  transform: rotate(90deg);
+  color: #3b82f6;
+}
+
+/* ── Expandable detail panel ────────────────────────── */
+.detail {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.25s ease;
+}
+
+.detailOpen {
+  grid-template-rows: 1fr;
+}
+
+.detailInner {
+  overflow: hidden;
+  border-top: 1px solid #1e3a5f;
+}
+
+.detailOpen .detailInner {
+  border-top-color: #1e3a5f;
+}
+
+/* ── Stats row ──────────────────────────────────────── */
+.stats {
+  display: flex;
+  gap: 0;
+  padding: 10px 14px 8px;
+}
+
+.stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.statIcon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.statVal {
+  font-size: 13px;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.statLbl {
+  font-size: 10px;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+/* ── Hourly mini scroll ─────────────────────────────── */
+.hourScroll {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 4px 14px 12px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.hourScroll::-webkit-scrollbar { display: none; }
+
+.hourCard {
+  flex-shrink: 0;
+  width: 52px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 7px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.hourTime {
+  font-size: 10px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.hourSymbol {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.hourTemp {
+  font-size: 12px;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.hourPop {
+  font-size: 10px;
+  color: #60a5fa;
 }

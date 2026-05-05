@@ -72,18 +72,31 @@ export async function fetchWeather(lat, lon) {
     }
   })
 
+  // ── All hourly: full 7-day window for daily detail panels ──
+  const allHourly = hTimes.map((dt, i) => ({
+    dt,
+    temp:          data.hourly.temperature_2m[i],
+    precipitation: data.hourly.precipitation[i]              ?? 0,
+    cloudiness:    data.hourly.cloud_cover[i]                ?? 0,
+    pop:           (data.hourly.precipitation_probability[i] ?? 0) / 100,
+  }))
+
   // ── Daily: 7-day forecast ─────────────────────────────────
   const daily = data.daily.time.map((dt, i) => ({
     dt,
     temp:          (data.daily.temperature_2m_max[i] + data.daily.temperature_2m_min[i]) / 2,
     temp_min:      data.daily.temperature_2m_min[i],
     temp_max:      data.daily.temperature_2m_max[i],
-    precipitation: data.daily.precipitation_sum[i] ?? 0,
+    precipitation: data.daily.precipitation_sum[i]              ?? 0,
+    pop:           (data.daily.precipitation_probability_max[i] ?? 0) / 100,
+    sunrise:       data.daily.sunrise[i] ?? null,
+    sunset:        data.daily.sunset[i]  ?? null,
   }))
 
   return {
     current,
     forecast,
+    allHourly,
     daily,
     source:      'Open-Meteo',
     isHistorical: false,

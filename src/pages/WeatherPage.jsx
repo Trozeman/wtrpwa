@@ -41,7 +41,7 @@ export default function WeatherPage() {
 
       <CurrentWeather data={displayCurrent} />
       <HourlyStrip hours={weather.forecast} />
-      <DailyForecast days={weather.daily} />
+      <DailyForecast days={weather.daily} allHourly={weather.allHourly} />
     </div>
   )
 }
