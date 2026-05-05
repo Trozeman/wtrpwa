@@ -46,12 +46,13 @@ registerRoute(
 )
 
 self.addEventListener('push', (e) => {
-  const data = e.data?.json() ?? {}
+  const data  = e.data?.json() ?? {}
+  const scope = self.registration.scope   // e.g. https://user.github.io/wtrpwa/
   e.waitUntil(
     self.registration.showNotification(data.title ?? 'WeatherPWA', {
-      body: data.body ?? '',
-      icon: '/icons/icon-192.svg',
-      badge: '/icons/badge-72.svg',
+      body:  data.body ?? '',
+      icon:  `${scope}icons/pwa-192x192.png`,
+      badge: `${scope}icons/badge-72.svg`,
     })
   )
 })

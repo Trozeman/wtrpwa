@@ -6,18 +6,20 @@ export async function fireNotification(title, body, emoji = '') {
 
   const displayTitle = emoji ? `${emoji} ${title}` : title
 
+  const base = import.meta.env.BASE_URL   // '/repo-name/' on GH Pages, '/' locally
+
   try {
     if ('serviceWorker' in navigator) {
       const reg = await navigator.serviceWorker.ready
       reg.showNotification(displayTitle, {
         body,
-        icon:     '/icons/pwa-192x192.png',
-        badge:    '/icons/badge-72.svg',
+        icon:     `${base}icons/pwa-192x192.png`,
+        badge:    `${base}icons/badge-72.svg`,
         tag:      title,        // collapses duplicates in the tray
         renotify: false,
       })
     } else {
-      new Notification(displayTitle, { body, icon: '/icons/pwa-192x192.png' })
+      new Notification(displayTitle, { body, icon: `${base}icons/pwa-192x192.png` })
     }
   } catch (e) {
     console.warn('Notification failed', e)

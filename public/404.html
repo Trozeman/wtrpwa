@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>WeatherPWA</title>
+  <script>
+    // GitHub Pages serves this file for any path that doesn't exist as a file.
+    // Store the full URL and redirect to the app root so React Router can take over.
+    var base = '/' + location.pathname.split('/').slice(1, 2).join('/');
+    sessionStorage.setItem('spa_redirect', location.href);
+    location.replace(base + '/');
+  </script>
+</head>
+<body></body>
+</html>
