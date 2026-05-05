@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useWeather } from '../../context/WeatherContext.jsx'
 import { useLocation } from '../../context/LocationContext.jsx'
 import TabBar from './TabBar.jsx'
@@ -9,7 +9,10 @@ export default function AppShell({ children }) {
   const { weather, error } = useWeather()
   const { location } = useLocation()
   const [toast, setToast] = useState(null)
+  const [updateReady, setUpdateReady] = useState(false)
+  const waitingSwRef = useRef(null)
 
+  // Offline detection
   useEffect(() => {
     const on  = () => setOffline(false)
     const off = () => setOffline(true)
@@ -18,12 +21,47 @@ export default function AppShell({ children }) {
     return () => { window.removeEventListener('online', on); window.removeEventListener('offline', off) }
   }, [])
 
+  // Background refresh error toast
   useEffect(() => {
     if (!error || !weather) return
     setToast(error)
     const t = setTimeout(() => setToast(null), 5000)
     return () => clearTimeout(t)
   }, [error])
+
+  // SW update detection
+  useEffect(() => {
+    if (!('serviceWorker' in navigator)) return
+
+    navigator.serviceWorker.ready.then(reg => {
+      // Already waiting (e.g. page was reloaded mid-update)
+      if (reg.waiting && navigator.serviceWorker.controller) {
+        waitingSwRef.current = reg.waiting
+        setUpdateReady(true)
+      }
+
+      reg.addEventListener('updatefound', () => {
+        const sw = reg.installing
+        if (!sw) return
+        sw.addEventListener('statechange', () => {
+          if (sw.state === 'installed' && navigator.serviceWorker.controller) {
+            waitingSwRef.current = sw
+            setUpdateReady(true)
+          }
+        })
+      })
+    })
+
+    // When the new SW takes control, reload so the user gets fresh assets
+    let refreshing = false
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!refreshing) { refreshing = true; window.location.reload() }
+    })
+  }, [])
+
+  function applyUpdate() {
+    waitingSwRef.current?.postMessage({ type: 'SKIP_WAITING' })
+  }
 
   const locationLine = location
     ? [location.name, location.state, location.country].filter(Boolean).join(', ')
@@ -40,6 +78,13 @@ export default function AppShell({ children }) {
           </span>
         )}
       </header>
+
+      {updateReady && (
+        <div className={styles.updateBanner} role="status">
+          <span>New version available</span>
+          <button className={styles.updateBtn} onClick={applyUpdate}>Update now</button>
+        </div>
+      )}
 
       {offline && (
         <div className={styles.offlineBanner} role="status">
