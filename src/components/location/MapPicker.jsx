@@ -16,7 +16,7 @@ L.Icon.Default.mergeOptions({ iconUrl, iconRetinaUrl, shadowUrl })
 const DEFAULT_CENTER = [48.5, 32.0] // center of Ukraine
 const DEFAULT_ZOOM = 6
 
-export default function MapPicker() {
+export default function MapPicker({ onSelect }) {
   const { setLocation } = useLocation()
 
   const containerRef = useRef(null)
@@ -82,6 +82,7 @@ export default function MapPicker() {
       const results = await reverseGeocode(lat, lon)
       const { name = null, country = null } = results[0] ?? {}
       setLocation({ lat, lon, name, country, source: 'manual' })
+      onSelect?.()
     } catch (e) {
       setError('Could not get location name — try again or use city search.')
       setConfirming(false)

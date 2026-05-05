@@ -34,7 +34,7 @@ export default function HourlyStrip({ hours }) {
 
   return (
     <div className={styles.section}>
-      <p className={styles.sectionHeader}>Recent 24 hours</p>
+      <p className={styles.sectionHeader}>24 h overview</p>
       <div className={styles.scroll} ref={scrollRef}>
         {slots.map(h => {
           const label     = formatHour(h.dt, settings.dateFormat)

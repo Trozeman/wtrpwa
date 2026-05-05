@@ -6,13 +6,13 @@ import { ExpirationPlugin } from 'workbox-expiration'
 cleanupOutdatedCaches()
 precacheAndRoute(self.__WB_MANIFEST)
 
-// NASA POWER API — network-first, 20 min cache
+// Open-Meteo — network-first, 10 min cache
 registerRoute(
-  ({ url }) => url.hostname === 'power.larc.nasa.gov',
+  ({ url }) => url.hostname === 'api.open-meteo.com',
   new NetworkFirst({
     cacheName: 'wtr-api-v1',
     plugins: [
-      new ExpirationPlugin({ maxAgeSeconds: 20 * 60, maxEntries: 10 }),
+      new ExpirationPlugin({ maxAgeSeconds: 10 * 60, maxEntries: 10 }),
     ],
   })
 )

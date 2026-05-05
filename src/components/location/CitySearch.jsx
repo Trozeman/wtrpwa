@@ -10,7 +10,7 @@ function countryFlag(code) {
   )
 }
 
-export default function CitySearch() {
+export default function CitySearch({ onSelect }) {
   const { setLocation } = useLocation()
 
   const [query, setQuery] = useState('')
@@ -47,6 +47,7 @@ export default function CitySearch() {
       country: item.country,
       source: 'manual',
     })
+    onSelect?.()
   }
 
   return (

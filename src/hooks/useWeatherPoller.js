@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { fetchWeather } from '../lib/nasaPower.js'
+import { fetchWeather } from '../lib/openMeteo.js'
 import { useSettings } from '../context/SettingsContext.jsx'
 import { useLocation } from '../context/LocationContext.jsx'
 import { useWeather } from '../context/WeatherContext.jsx'

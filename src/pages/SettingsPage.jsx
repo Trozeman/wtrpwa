@@ -3,6 +3,7 @@ import { useSettings } from '../context/SettingsContext.jsx'
 import { useLocation } from '../context/LocationContext.jsx'
 import { formatDate, formatTemp } from '../lib/format.js'
 import { clearAll } from '../lib/storage.js'
+import LocationModal from '../components/location/LocationModal.jsx'
 import styles from './SettingsPage.module.css'
 
 const DATE_FORMATS = [
@@ -28,6 +29,7 @@ export default function SettingsPage() {
     typeof Notification !== 'undefined' ? Notification.permission : 'denied'
   )
   const [confirmReset, setConfirmReset] = useState(false)
+  const [showLocationModal, setShowLocationModal] = useState(false)
 
   const datePreview = formatDate(PREVIEW_TS, settings.dateFormat)
   const tempPreview = formatTemp(PREVIEW_TEMP_C, settings.tempUnit)
@@ -51,20 +53,19 @@ export default function SettingsPage() {
         <div className={styles.row}>
           <div className={styles.rowHeader}>
             <div>
-              <div className={styles.label}>NASA POWER API</div>
-              <div className={styles.sublabel}>Free · No API key required · ~48–72 h data latency</div>
+              <div className={styles.label}>Open-Meteo</div>
+              <div className={styles.sublabel}>Free · No API key · Real-time current + 7-day forecast</div>
             </div>
             <span className={`${styles.badge} ${styles.badgeGranted}`}>Active</span>
           </div>
           <div className={styles.apiNote}>
-            <NasaIcon />
+            <WeatherIcon />
             <span>
-              Provides temperature, humidity, wind, and precipitation data from
-              NASA satellites and models. Data has ~48–72 h latency — shows recent
-              conditions, not real-time forecasts.{' '}
+              Provides real-time temperature, humidity, wind, and precipitation
+              from numerical weather models. Data is updated hourly.{' '}
               <a
                 className={styles.link}
-                href="https://power.larc.nasa.gov"
+                href="https://open-meteo.com"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -202,10 +203,10 @@ export default function SettingsPage() {
       </section>
 
       {/* ── Location ──────────────────────────────────────── */}
-      {location && (
-        <section className={styles.section}>
-          <p className={styles.sectionTitle}>Location</p>
-          <div className={styles.row}>
+      <section className={styles.section}>
+        <p className={styles.sectionTitle}>Location</p>
+        <div className={styles.row}>
+          {location ? (
             <div className={styles.rowHeader}>
               <div>
                 <div className={styles.label}>{location.name ?? 'Custom location'}</div>
@@ -214,8 +215,20 @@ export default function SettingsPage() {
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          ) : (
+            <div className={styles.sublabel}>No location set</div>
+          )}
+          <button
+            className={`${styles.btn} ${styles.btnPrimary}`}
+            onClick={() => setShowLocationModal(true)}
+          >
+            Change location
+          </button>
+        </div>
+      </section>
+
+      {showLocationModal && (
+        <LocationModal onClose={() => setShowLocationModal(false)} />
       )}
 
       {/* ── Danger zone ───────────────────────────────────── */}
@@ -261,13 +274,12 @@ function NotifBadge({ permission }) {
   return <span className={`${styles.badge} ${styles.badgeDefault}`}>Not set</span>
 }
 
-function NasaIcon() {
+function WeatherIcon() {
   return (
     <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style={{ flexShrink: 0 }}>
-      <circle cx="14" cy="14" r="13" fill="#1d4ed8" stroke="#3b82f6" strokeWidth="1.5"/>
-      <ellipse cx="14" cy="14" rx="6" ry="13" stroke="#93c5fd" strokeWidth="1.2" fill="none"/>
-      <line x1="1" y1="14" x2="27" y2="14" stroke="#93c5fd" strokeWidth="1.2"/>
-      <circle cx="14" cy="14" r="3" fill="#60a5fa"/>
+      <circle cx="11" cy="11" r="6" fill="#fbbf24" />
+      <rect x="4" y="17" width="20" height="6" rx="3" fill="#60a5fa" />
+      <path d="M8 17 Q11 11 16 14 Q18 10 22 13 Q25 13 24 17Z" fill="#e2e8f0" />
     </svg>
   )
 }

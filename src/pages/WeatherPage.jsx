@@ -16,12 +16,7 @@ export default function WeatherPage() {
   if (error && !weather)   return <ErrorState message={error} />
   if (!weather)            return <EmptyState />
 
-  // Use the slot matching the current hour-of-day for the main display —
-  // this gives the most contextually relevant historical reading.
-  const nowHour = new Date().getHours()
-  const displayCurrent = (weather.forecast ?? []).slice().reverse().find(
-    h => new Date(h.dt * 1000).getHours() === nowHour
-  ) ?? weather.current
+  const displayCurrent = weather.current
 
   const dataTime = displayCurrent?.dt
     ? formatDate(displayCurrent.dt * 1000, settings.dateFormat)
@@ -43,11 +38,6 @@ export default function WeatherPage() {
         {loading && <div className={styles.spinner} aria-label="Updating…" />}
       </div>
 
-      {weather.isHistorical && (
-        <p className={styles.histNote}>
-          NASA POWER data has ~48–72 h latency — showing recent conditions, not live readings
-        </p>
-      )}
 
       <CurrentWeather data={displayCurrent} />
       <HourlyStrip hours={weather.forecast} />
@@ -61,9 +51,7 @@ function LoadingState() {
     <div className={styles.state}>
       <div className={styles.stateSpinner} role="status" aria-label="Loading weather" />
       <p className={styles.stateTitle}>Fetching weather data…</p>
-      <p className={styles.stateBody}>
-        NASA POWER processes satellite data — first load may take up to 30 seconds.
-      </p>
+      <p className={styles.stateBody}>Fetching live conditions from Open-Meteo…</p>
     </div>
   )
 }

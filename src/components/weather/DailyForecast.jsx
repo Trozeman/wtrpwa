@@ -17,7 +17,7 @@ export default function DailyForecast({ days }) {
 
   return (
     <div className={styles.section}>
-      <p className={styles.sectionHeader}>Recent days</p>
+      <p className={styles.sectionHeader}>7-day forecast</p>
       <div className={styles.list}>
         {days.map(day => {
           const date    = new Date(day.dt * 1000)
