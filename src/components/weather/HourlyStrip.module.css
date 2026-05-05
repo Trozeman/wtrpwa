@@ -1,0 +1,83 @@
+.section {
+  margin: 16px 0 0;
+}
+
+.sectionHeader {
+  padding: 0 16px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  color: #475569;
+}
+
+.scroll {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 0 16px 12px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scroll::-webkit-scrollbar { display: none; }
+
+.card {
+  flex-shrink: 0;
+  width: 62px;
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 10px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.card.current {
+  border-color: #3b82f6;
+  background: #1e3a5f;
+}
+
+.card.now {
+  border-color: #f59e0b;
+  background: #1c1505;
+}
+
+/* current + now at the same slot — amber wins */
+.card.current.now {
+  border-color: #f59e0b;
+  background: #1c2a3a;
+}
+
+.time {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.nowBadge {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  color: #f59e0b;
+  margin-top: -3px;
+}
+
+.symbol {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.temp {
+  font-size: 13px;
+  font-weight: 600;
+  color: #e2e8f0;
+  text-align: center;
+}
+
+.precip {
+  font-size: 10px;
+  color: #60a5fa;
+}

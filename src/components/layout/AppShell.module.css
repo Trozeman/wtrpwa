@@ -1,0 +1,93 @@
+.shell {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.main {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: calc(60px + env(safe-area-inset-bottom, 0));
+}
+
+/* ── Persistent top bar ────────────────────────────────── */
+.topBar {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: calc(10px + env(safe-area-inset-top, 0)) 16px 10px;
+  background: #0f172a;
+  border-bottom: 1px solid #1e293b;
+  flex-shrink: 0;
+}
+
+.appName {
+  font-size: 15px;
+  font-weight: 700;
+  color: #f1f5f9;
+  flex-shrink: 0;
+}
+
+.locationName {
+  font-size: 13px;
+  color: #64748b;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: right;
+}
+
+.offlineBanner {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #92400e;
+  color: #fef3c7;
+  text-align: center;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* ── Error toast (background refresh failures) ─────────── */
+.toast {
+  position: fixed;
+  bottom: calc(60px + env(safe-area-inset-bottom, 0) + 10px);
+  left: 16px;
+  right: 16px;
+  max-width: 568px;
+  margin: 0 auto;
+  background: #1e293b;
+  border: 1px solid #ef4444;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #fca5a5;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 100;
+  animation: toastIn 0.2s ease;
+}
+
+@keyframes toastIn {
+  from { transform: translateY(12px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.toastMsg { flex: 1; }
+
+.toastClose {
+  color: #64748b;
+  font-size: 20px;
+  line-height: 1;
+  flex-shrink: 0;
+  padding: 2px 4px;
+}
+.toastClose:hover { color: #e2e8f0; }

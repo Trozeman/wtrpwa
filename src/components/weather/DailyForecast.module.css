@@ -1,0 +1,86 @@
+.section {
+  margin: 16px 0 0;
+}
+
+.sectionHeader {
+  padding: 0 16px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  color: #475569;
+}
+
+.list {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 16px;
+  margin: 0 16px;
+  overflow: hidden;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 60px 22px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-top: 1px solid #0f172a;
+}
+
+.row:first-child { border-top: none; }
+
+.day {
+  font-size: 13px;
+  font-weight: 500;
+  color: #e2e8f0;
+}
+
+.symbol {
+  font-size: 18px;
+  line-height: 1;
+  text-align: center;
+}
+
+/* ── Temp range bar ─────────────────────────────────── */
+.barWrap {
+  position: relative;
+  height: 6px;
+  background: #334155;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.bar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #3b82f6, #f59e0b);
+}
+
+/* ── Min / Max labels ───────────────────────────────── */
+.temps {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+  min-width: 56px;
+}
+
+.tMax {
+  font-size: 14px;
+  font-weight: 600;
+  color: #f8fafc;
+}
+
+.tMin {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.precip {
+  font-size: 11px;
+  color: #60a5fa;
+  margin-top: 1px;
+}

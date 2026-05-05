@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create *)",
+      "Bash(cp -r /Users/dshymko/my/mvp/wtrpwa_tmp/. /Users/dshymko/my/mvp/wtrpwa/)",
+      "Bash(rm -rf /Users/dshymko/my/mvp/wtrpwa_tmp)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5175/)",
+      "Bash(curl -s http://localhost:5173/ -o /dev/null -w \"%{http_code}\")",
+      "Bash(curl -s http://localhost:5174/ -o /dev/null -w \"%{http_code}\")",
+      "Bash(curl -s http://localhost:5175/ -o /dev/null -w \"%{http_code}\")",
+      "Bash(curl -s http://localhost:5176/ -o /dev/null -w \"%{http_code}\")",
+      "Bash(curl -s http://localhost:5177/ -o /dev/null -w \"%{http_code}\")",
+      "Bash(curl *)",
+      "WebFetch(domain:power.larc.nasa.gov)",
+      "WebSearch",
+      "Bash(node *)"
+    ]
+  }
+}

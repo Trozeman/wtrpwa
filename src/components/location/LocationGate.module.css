@@ -1,0 +1,29 @@
+.splash {
+  position: fixed;
+  inset: 0;
+  background: #0f172a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  z-index: 200;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #1e293b;
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.label {
+  font-size: 15px;
+  color: #64748b;
+}
