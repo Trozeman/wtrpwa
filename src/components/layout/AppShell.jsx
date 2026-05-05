@@ -33,7 +33,7 @@ export default function AppShell({ children }) {
     <div className={styles.shell}>
       {/* ── Persistent top bar ── */}
       <header className={styles.topBar}>
-        <span className={styles.appName}>WeatherPWA</span>
+        <span className={styles.appName}>Weather Notifier</span>
         {locationLine && (
           <span className={styles.locationName} title={locationLine}>
             📍 {locationLine}

@@ -262,7 +262,7 @@ export default function SettingsPage() {
       </section>
 
       <div style={{ fontSize: 11, color: '#334155', textAlign: 'center', marginTop: 8 }}>
-        WeatherPWA · all data stored locally
+        Weather Notifier · all data stored locally
       </div>
     </div>
   )

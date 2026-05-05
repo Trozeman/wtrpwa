@@ -18,7 +18,7 @@ export default defineConfig({
         type: 'module',
       },
       manifest: {
-        name: 'WeatherPWA',
+        name: 'Weather Notifier',
         short_name: 'Weather',
         description: 'Personal weather app with customizable push notification triggers',
         // Relative start_url so it works under any sub-path (GitHub Pages or root)

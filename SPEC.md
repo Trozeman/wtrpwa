@@ -167,7 +167,7 @@ self.registration.showNotification(trigger.name, {
 
 ```json
 {
-  "name": "WeatherPWA",
+  "name": "Weather Notifier",
   "short_name": "Weather",
   "start_url": "/",
   "display": "standalone",

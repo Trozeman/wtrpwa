@@ -49,7 +49,7 @@ self.addEventListener('push', (e) => {
   const data  = e.data?.json() ?? {}
   const scope = self.registration.scope   // e.g. https://user.github.io/wtrpwa/
   e.waitUntil(
-    self.registration.showNotification(data.title ?? 'WeatherPWA', {
+    self.registration.showNotification(data.title ?? 'Weather Notifier', {
       body:  data.body ?? '',
       icon:  `${scope}icons/pwa-192x192.png`,
       badge: `${scope}icons/badge-72.svg`,
@@ -59,5 +59,14 @@ self.addEventListener('push', (e) => {
 
 self.addEventListener('notificationclick', (e) => {
   e.notification.close()
-  e.waitUntil(clients.openWindow('/'))
+  const target = self.registration.scope   // https://user.github.io/wtrpwa/
+  e.waitUntil(
+    clients
+      .matchAll({ type: 'window', includeUncontrolled: true })
+      .then(list => {
+        // Focus an existing app window (brings installed PWA to foreground)
+        const existing = list.find(c => c.url.startsWith(target))
+        return existing ? existing.focus() : clients.openWindow(target)
+      })
+  )
 })

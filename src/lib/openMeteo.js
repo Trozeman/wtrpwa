@@ -19,6 +19,7 @@ export async function fetchWeather(lat, lon) {
   url.searchParams.set('daily', [
     'temperature_2m_max', 'temperature_2m_min',
     'precipitation_sum', 'precipitation_probability_max',
+    'sunrise', 'sunset',
   ].join(','))
   url.searchParams.set('wind_speed_unit', 'ms')  // keep m/s; formatWindSpeed() handles conversion
   url.searchParams.set('timezone',      'auto')
@@ -50,6 +51,8 @@ export async function fetchWeather(lat, lon) {
     precipitation: c.precipitation  ?? 0,
     cloudiness:    c.cloud_cover    ?? 0,
     pop:           (data.hourly.precipitation_probability[nowIdx] ?? 0) / 100,
+    sunrise:       data.daily.sunrise[0]  ?? null,
+    sunset:        data.daily.sunset[0]   ?? null,
   }
 
   // ── Hourly strip: ±12 h around now ───────────────────────

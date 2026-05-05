@@ -1,5 +1,5 @@
 import { useSettings } from '../../context/SettingsContext.jsx'
-import { formatTemp, formatWindSpeed } from '../../lib/format.js'
+import { formatTemp, formatWindSpeed, formatTime } from '../../lib/format.js'
 import { weatherCondition, feelsLike, windDirection } from '../../lib/weather.js'
 import styles from './CurrentWeather.module.css'
 
@@ -51,6 +51,26 @@ export default function CurrentWeather({ data }) {
             <span style={{fontSize:13}}> mm/h</span>
           </span>
         </div>
+
+        {data.sunrise != null && (
+          <div className={styles.metric}>
+            <span className={styles.metricLabel}>Sunrise</span>
+            <span className={styles.metricValue}>
+              <span style={{fontSize:16, marginRight:4}}>🌅</span>
+              {formatTime(data.sunrise, settings.dateFormat)}
+            </span>
+          </div>
+        )}
+
+        {data.sunset != null && (
+          <div className={styles.metric}>
+            <span className={styles.metricLabel}>Sunset</span>
+            <span className={styles.metricValue}>
+              <span style={{fontSize:16, marginRight:4}}>🌇</span>
+              {formatTime(data.sunset, settings.dateFormat)}
+            </span>
+          </div>
+        )}
       </div>
     </div>
   )

@@ -32,6 +32,17 @@ export function formatHour(dtSec, dateFormat = 'DD.MM.YYYY HH:mm') {
   return `${String(d.getHours()).padStart(2, '0')}:00`
 }
 
+// Like formatHour but includes minutes — used for sunrise/sunset.
+export function formatTime(dtSec, dateFormat = 'DD.MM.YYYY HH:mm') {
+  const d   = new Date(dtSec * 1000)
+  const min = String(d.getMinutes()).padStart(2, '0')
+  if (/hh/.test(dateFormat)) {
+    const h = d.getHours() % 12 || 12
+    return `${h}:${min} ${d.getHours() < 12 ? 'am' : 'pm'}`
+  }
+  return `${String(d.getHours()).padStart(2, '0')}:${min}`
+}
+
 export function formatWindSpeed(ms) {
   if (ms == null) return '?'
   return `${(ms * 3.6).toFixed(1)}`
